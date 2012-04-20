@@ -11,4 +11,4 @@ When I have working that out I can then build the IE data store of what each ver
 
 #Demo
 
-When I get a chance I will upload this to my server so you can see how it is working and progressing.
+I have uploaded a Demo to my site [http://sam-benne.co.uk/playground/css-api/](CSS-API). I will be adding the Twitter Bootstrap so it looks nice

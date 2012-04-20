@@ -8,17 +8,14 @@
 	$CSS = preg_replace('/\{[^\}]+\}/', '', $CSS);
 	$CSS = preg_replace('/\t[a-zA-Z .-]*/', '', $CSS);
 	$CSS = str_replace("}", "", $CSS);
-	$CSS = str_replace("\n", "", $CSS);
+	// $CSS = str_replace("\n", "", $CSS);
 	// $CSS = str_replace("\r", "", $CSS);
 	$CSS = str_replace("\t", "", $CSS);
 	$temp = $CSS;
-	$aCSS = explode("\r", trim($CSS));
+	$aCSS = explode("\n", trim($CSS));
 	foreach ($aCSS as $k => $v) $aCSS[$k] = trim($v);
-	// echo $CSS;
 	// echo "<pre>" . print_r($aCSS, true) . "</pre>";
 	echo "<h2>New CSS</h2><pre>" . $temp . "</pre>";
-	$lol = preg_match("/[a-zA-Z0-9-_]{1,100}\s[a-zA-Z0-9-_]{1,100}/", $temp, $matches);
-	// $lol = preg_match("/[a-z]{1,1000}\s[a-z]{1,1000}/", $temp, $matches);
 	$used = array();
 	echo "<h2>Test Search</h2>";
 	foreach ($aCSS as $k => $v) {
