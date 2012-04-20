@@ -1,0 +1,167 @@
+/* AutoSuggest CSS - Version 1.2 */
+
+ul.as-selections {
+	background:white;
+	border:1px solid #DDD;
+	border-top-color: #AAA;
+	border-left-color: #AAA;
+	padding:10px 1%;
+	-webkit-box-sizing: border-box;
+	overflow:hidden;
+	width:100%;
+	display:block;
+	font-size:22px;
+	font-family:'FontSiteSansLightCondensed', 'Helvetica', 'Arial', sans-serif !important;
+	box-shadow: 3px 3px 1px rgba(0,0,0,0.065) inset, 1px 1px 0 #FFF;
+	-webkit-transition:border .3s linear, background-color .3s linear;
+	margin-bottom:20px
+}
+ul.as-selections:hover {
+	border:1px solid #09C;
+	outline:none;
+	box-shadow: 3px 3px 1px rgba(0,0,0,0.065) inset, 1px 1px 0 #FFF;
+	background-color:rgba(0, 204, 255, 0.1)
+}
+
+ul.as-selections.loading {
+	background-color: #eee;
+}
+
+ul.as-selections li {
+	float: left;
+	margin: 0 5px 0 0;
+}
+
+ul.as-selections li.as-selection-item {
+	color: #FFF;
+	font-size: 22px;
+	background-color: rgba(0,153,204,0.75);
+	/*background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddeefe), to(#bfe0f1));*/
+	padding: 5px 5px 5px 10px;
+	border-radius: 3px;
+	line-height:148%
+}
+
+ul.as-selections li.as-selection-item:last-child {
+	margin-left: 30px;
+}
+
+ul.as-selections li.as-selection-item a.as-close {
+	float: right;
+	margin: 1px 0 0 7px;
+	padding: 0 2px;
+	cursor: pointer;
+	color: #FFF;
+	font-family: "Helvetica", helvetica, arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	-webkit-transition: color .1s ease-in;
+}
+
+ul.as-selections li.as-selection-item.blur {
+	color: #444;
+	background-color: #EEE;
+}
+
+ul.as-selections li.as-selection-item.blur a.as-close {
+	color: #CCC;
+}
+
+ul.as-selections li:hover.as-selection-item {
+	color: #FFF;
+	background-color: rgba(255, 0, 51, 0.35);
+	border-color: #6da0e0;
+	border-top-color: #8bb7ed;
+}
+
+ul.as-selections li:hover.as-selection-item a.as-close {
+	color: #FFF;
+}
+
+ul.as-selections li.as-selection-item.selected {
+	border-color: #1f30e4;
+}
+
+ul.as-selections li.as-selection-item a:hover.as-close {
+	color: #111;
+}
+
+ul.as-selections li.as-selection-item a:active.as-close {
+	color: rgba(255, 0, 51, 0.35);
+}
+
+ul.as-selections li.as-original {
+	margin-left: 0;
+}
+
+ul.as-selections li.as-original input, ul.as-selections li.as-original input:focus {
+	border: none;
+	background:none;
+	outline: none;
+	font-size: 22px;
+	width: 150px;
+	padding-top: 3px;
+	box-shadow:none
+}
+
+ul.as-list {
+	position: absolute;
+	list-style-type: none;
+	margin: -21px 0 0 0;
+	padding: 0;
+	font-size: 22px;
+	font-family:'FontSiteSansLightCondensed', 'Helvetica', 'Arial', sans-serif !important;
+	z-index: 2;
+	box-shadow: 3px 0 1px rgba(0, 0, 0, 0.065) inset, 0 4px 0 rgba(0,0,0,0.15);
+	border:1px solid #09C;
+	border-top-color:#9CF;
+	border-top-style:dashed;
+	-webkit-box-sizing:border-box;
+	outline:none;
+	box-shadow: 3px 0 1px rgba(0,0,0,0.065) inset, 1px 1px 0 #FFF;
+	background-color:rgba(255, 255, 255, 0.85)
+}
+
+li.as-result-item, li.as-message {
+	margin: 0 0 0 0;
+	padding: 10px 12px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+li:first-child.as-result-item {
+	margin: 0;
+}
+
+li.as-message {
+	margin: 0;
+	cursor: default;
+}
+
+li.as-result-item.active {
+	background-color:rgba(0, 204, 255, 0.1);
+	color: #09C;
+}
+
+li.as-result-item em { 
+	font-style: normal; 
+	background: #09C;  
+	padding: 0 2px;
+	color: #fff;
+}
+
+li.as-result-item.active em { 
+	background: #069;  
+	color: #fff;
+}
+
+/* Webkit Hacks  */
+@media screen and (-webkit-min-device-pixel-ratio:0) {	
+	ul.as-selections li.as-selection-item {
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	ul.as-selections li.as-selection-item a.as-close {
+		margin-top: -1px;
+	}
+}
