@@ -1,14 +1,10 @@
 CSS-API
 =======
 
-This will parse the CSS and tell you what browsers support it.
+I have started creating a site that will allow you to put your CSS in and it will tell you what versions of IE will support it. It will check all the Selectors, Properties, Values and Units that you have used and report back which ones will work.
 
-#So Far
+Up to know I have got a class started. This will parse the CSS get all the neccessary data that it needs so that it will be able to work out what versions are compatible.
 
-I have just done a quick getting of the CSS selectors. Having some issues with media queries but I assume all `@selectors`. I will then need to work out what type of selector is being used. So I will need to create a data store of the different CSS selector types that I can then check against.
+### Demo ###
 
-When I have working that out I can then build the IE data store of what each version can do. After all that its just a simple comparason.
-
-#Demo
-
-I have uploaded a Demo to my site [http://sam-benne.co.uk/playground/css-api/](CSS-API). I will be adding the Twitter Bootstrap so it looks nice
+You can check out the demo site I have created. I will keep it updated as I update the Class. When I have it working I will then set up a proper site for it so that people can use the API not only just on my site but outside as well.
