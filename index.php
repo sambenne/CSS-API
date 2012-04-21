@@ -11,7 +11,6 @@
 		<meta name="description" content="">
 		<meta name="author" content="Sam Bennett">
 
-		<!-- Le styles -->
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<style type="text/css">
 			body {
@@ -57,31 +56,59 @@
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#lA" data-toggle="tab">Current State</a></li>
 								<li><a href="#lB" data-toggle="tab">The CSS</a></li>
-								<li class=""><a href="#lC" data-toggle="tab">New CSS</a></li>
-								<li class=""><a href="#lD" data-toggle="tab">What we get!</a></li>
+								<li><a href="#lC" data-toggle="tab">New CSS</a></li>
+								<li><a href="#at" data-toggle="tab">@types</a></li>
+								<li><a href="#lD" data-toggle="tab">What we get!</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="lA">
 									<h2>Current State</h2>
-									<p>I have only been working on this a little and have made a bit of a progress. I have started on my Array of data on selectors, properties and values etc. I have started a CSS parser to get the Selectors. I think I am currently just going to get selectors working first and then add the others. I will be creating a class so that I can easily add in new features.</p>
+									<p>I have created a class that is dealing with the CSS. It currently cleans up the CSS and in seperate functions it does what it needs to get the 4 different parts that it needs to work out the selectors, properties etc.<br />So far it can get pretty much all the selectors bar one or two due to me not having done the regex yet, it then searches through the CSS building an array of what it finds. I have also started it getting the properties however, there is a lot of regex as there is a lot of properties. I will then get the values and units sorted afterwards.</p>
 									<p>Once I have it working out which features are used I will be able to work out if the browsers support them and be able to build a report on it. I will also make it so that you can easily add your CSS to the page by three ways file upload, URL and Direct Input.</p>
 									<p>I am hoping that I will be able to create an API so that users can just send an URL and get the data with JavaScript.</p>
+									<p>Don't forget to check the code out on my <a href="https://github.com/sambenne/CSS-API">GitHub Page</a>.</p>
 								</div>
 								<div class="tab-pane" id="lB">
+									<h2>The CSS</h2>
+									<p>This is the CSS that I am using to test that the parser is working. I will be adding more to this as I go along to fit in with the tests. This CSS is what is currently being used and that is why it is different to the actual file because it has had the Comments removed.</p>
 									<pre class="prettyprint linenums"><?php $CSS = $CP->rawCSS(); echo $CSS; ?></pre>
 								</div>
 								<div class="tab-pane" id="lC">
+									<h2>The New CSS</h2>
+									<p>To make things easier I do a clean up of the CSS. I remove unwanted whitespace, add in missing <code>;</code>(Only on the last line of each selector.). I then compress the CSS as well this is so that I can get what I need easier later on.</p>
 									<?php
 										$CP->preSelcCSS();
-										$CP->getSelectors();
-										$temp = $CP->selCSS();
+										$SEL = $CP->selCSS();
+										$CP->getProperties();
+										$properties = $CP->properties();
+										$values = $CP->values();
+										$CP->addUsed();
+										$temp = $CP->cleanCSS();
 									?>
-									<pre class="prettyprint linenums"><?php echo $temp; ?></pre>
+									<pre><?php echo $temp; ?></pre>
+								</div>
+								<div class="tab-pane" id="at">
+									<h2>The @Types</h2>
+									<p>This is where I get all the CSS blocks that start with the @ symbol as these need some special care.</p>
+									<?php
+										$CP->getAtRules();
+										$CSS = $CP->atCSS();
+										$atTypes = $CP->used();
+										echo "<pre>" . print_r($atTypes['at-types'], true) . "</pre>";
+									?>
+									<!-- <pre><?php echo $CSS; ?></pre> -->
 								</div>
 								<div class="tab-pane" id="lD">
+									<h2>What we end up with in the end</h2>
+									<p>This is what we have so far.</p>
 									<?php
+										echo "<h3>Selectors</h3><p>These are all the selectors that are in the CSS, however, not all will be needed as some will end up giving us duplicates. So they will get ignored.</p><pre>$SEL</pre><br />";
+										echo "<h3>Properties</h3><p>These are all the properties that we found. currently this has gotten rid of all the duplicates. Some of you might notice that I have a property in there that isn't an actual property. What I am hoping to do is a bit of validation later on.</p>";
+										echo "<pre>" . print_r($properties, true) . "</pre>";
+										echo "<h3>Values</h3><p>These are all the unique values that we have found. I will be using these to determine the values and units.</p>";
+										echo "<pre>" . print_r($values, true) . "</pre>";
 										$CSS = "<pre>" . print_r($CP->used(), true) . "</pre>";
-										echo "<h2>What we have got!</h2>$CSS<br />";
+										echo "<h3>What we found</h3><p>So this is what I will be using to the comparison later on. I have put a little more information for testing in it but that will be removed.</p>$CSS";
 									?>
 								</div>
 							</div>

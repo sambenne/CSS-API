@@ -12,9 +12,13 @@
 		private static $usedDisplay = array();
 		private static $rules = array();
 		private static $aSelectors = array();
+		private static $aProperties = array();
+		private static $aValues = array();
 		private static $rawCSS;
 		public static $atCSS;
+		public static $cleanCSS;
 		public static $selectorsCSS;
+		public static $propertiesCSS;
 
 		public function __construct() {
 			global $rules;
@@ -48,7 +52,7 @@
 				}
 			}
 		}
-		public function getSelectors() {
+		public function addUsed() {
 			/* SELECTORS */
 			self::addToUsed('selectors');
 			/* COMBINATORS */
@@ -59,17 +63,21 @@
 			self::addToUsed('pseudo_classes');
 			/* PSEUDO ELEMENTS */
 			self::addToUsed('pseudo_elements');
+			/* PROPERTIES */
+			self::addToUsed('border-layout', 'aProperties');
 		}
-		private static function addToUsed($name) {
+		private static function addToUsed($name, $type = 'aSelectors') {
 			$tmpRules = array_merge(self::$rules[$name]['2.1'], self::$rules[$name]['3']);
 			self::$used[$name] = array();
 			self::$usedDisplay[$name] = array();
-			foreach(self::$aSelectors as $i => $html) {
+			foreach(self::${$type} as $i => $html) {
 				foreach($tmpRules as $k => $v) {
-					@preg_match($v, $html, $matches);
-					if(!empty($matches) && !in_array($k, self::$used[$name])) {
-						self::$used[$name][] = $k;
-						self::$usedDisplay[$name][] = array("type" => $k, "data" => $html);
+					if($v !== "//") {
+						@preg_match($v, $html, $matches);
+						if(!empty($matches) && !in_array($k, self::$used[$name])) {
+							self::$used[$name][] = $k;
+							self::$usedDisplay[$name][] = array('type' => $k, 'data' => $html);
+						}
 					}
 				}
 			}
@@ -89,6 +97,7 @@
 			$tempCSS = str_replace("\r", "", $tempCSS);
 			/* Uncompress */
 			$tempCSS = str_replace("}", "}\n", $tempCSS);
+			self::$cleanCSS = $tempCSS;
 			/* Remove properties */
 			$tempCSS = preg_replace('/\{[^\}]+\}/', '', $tempCSS);
 			$tempCSS = preg_replace('/\t[a-zA-Z .-]*/', '', $tempCSS); // ?
@@ -98,11 +107,39 @@
 			/* Store Selectors */
 			self::$selectorsCSS = implode("\n", self::$aSelectors);
 		}
+		public function getProperties() {
+			$tempCSS = self::$cleanCSS;
+			self::$propertiesCSS = array_slice(explode("\n", $tempCSS), 0, -1);
+			foreach (self::$propertiesCSS as $k => $v) {
+				self::$propertiesCSS[$k] = preg_replace("/(.*?){/", "", self::$propertiesCSS[$k]);
+				self::$propertiesCSS[$k] = preg_replace("/\}/", "", self::$propertiesCSS[$k]);
+				$tmpRev = strrev(self::$propertiesCSS[$k]);
+				if($tmpRev{0} !== ";") self::$propertiesCSS[$k] .= ";";
+			}
+			self::$propertiesCSS = array_slice(explode(";", implode("", self::$propertiesCSS)), 0, -1);
+			foreach (self::$propertiesCSS as $k => $v) {
+				$tmpData = explode(":", $v);
+				if(!in_array(trim($tmpData[0]), self::$aProperties)) self::$aProperties[] = trim($tmpData[0]);
+				if(!in_array(trim($tmpData[1]), self::$aValues)) self::$aValues[] = trim($tmpData[1]);
+			}
+		}
 		public function atCSS() {
 			return self::$atCSS;
 		}
 		public function selCSS() {
 			return self::$selectorsCSS;
+		}
+		public function propCSS() {
+			return self::$propertiesCSS;
+		}
+		public function cleanCSS() {
+			return self::$cleanCSS;
+		}
+		public function properties() {
+			return self::$aProperties;
+		}
+		public function values() {
+			return self::$aValues;
 		}
 		public function rawCSS() {
 			return self::$rawCSS;

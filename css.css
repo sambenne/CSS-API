@@ -10,7 +10,7 @@ div + div {
 
 div ~ div {
 	margin: 10px;
-	padding: 10px;
+	padding: 10px
 }
 
 div:first-child {

@@ -104,8 +104,205 @@
 				"::repeat-item" => "/([a-zA-Z0-9-_])::repeat-item/",
 				"::repeat-index" => "/([a-zA-Z0-9-_])::repeat-index/"
 			)
+		),
+		/* Properties */
+		"2d-transforms" => array(
+			"2.1" => array(),
+			"3" => array(
+				"transform" => "//",
+				"transform-origin" => "//"
+			)
+		),
+		"list" => array(
+			"2.1" => array(
+				"list-style" => "//",
+				"list-style-image" => "//",
+				"list-style-position" => "//",
+				"list-style-type" => "//"
+			),
+			"3" => array()
+		),
+		"color-background" => array(
+			"2.1" => array(
+				"color" => "//",
+				"background" => "//",
+				"background-attachment" => "//",
+				"background-color" => "//",
+				"background-image" => "//",
+				"background-position" => "//",
+				"background-repeat" => "//"
+			),
+			"3" => array(
+				"color-profile" => "//",
+				"rendering-intent" => "//",
+				"background" => "//",
+				"background-clip" => "//",
+				"background-origin" => "//",
+				"background-break" => "//",
+				"background-size" => "//"
+			)
+		),
+		"font-text" => array(
+			"2.1" => array(
+				"direction" => "//",
+				"font" => "//",
+				"font-family" => "//",
+				"font-size" => "//",
+				"font-style" => "//",
+				"font-variant" => "//",
+				"font-weight" => "//",
+				"letter-spacing" => "//",
+				"line-height" => "//",
+				"text-align" => "//",
+				"text-decoration" => "//",
+				"text-indent" => "//",
+				"text-transform" => "//",
+				"unicode-bidi" => "//",
+				"vertical-align" => "//",
+				"white-space" => "//",
+				"word-spacing" => "//"
+			),
+			"3" => array(
+				"font-effect" => "//",
+				"font-emphasize" => "//",
+				"font-size" => "//",
+				"font-smooth" => "//",
+				"font-stretch" => "//",
+				"hanging-punctuation" => "//",
+				"punctuation-trim" => "//",
+				"ruby-align" => "//",
+				"ruby-overhang" => "//",
+				"ruby-position" => "//",
+				"ruby-span" => "//",
+				"text-align" => "//",
+				"text-emphasis" => "//",
+				"text-justify" => "//",
+				"text-outline" => "//",
+				"text-overflow" => "//",
+				"text-shadow" => "//",
+				"text-wrap" => "//",
+				"word-break" => "//",
+				"word-wrap" => "//",
+				"writing-mode" => "//"
+			)
+		),
+		"generated-content" => array(
+			"2.1" => array(
+				"content" => "//",
+				"counter-increment" => "//",
+				"counter-reset" => "//",
+				"quotes" => "//"
+			),
+			"3" => array()
+		),
+		"border-layout" => array(
+			"2.1" => array(
+				"border" => "//",
+				"border-bottom" => "//",
+				"border-bottom-color" => "//",
+				"border-bottom-style" => "//",
+				"border-bottom-width" => "//",
+				"border-collapse" => "//",
+				"border-color" => "//",
+				"border-left" => "//",
+				"border-left-color" => "//",
+				"border-left-style" => "//",
+				"border-left-width" => "//",
+				"border-right" => "//",
+				"border-right-color" => "//",
+				"border-right-style" => "//",
+				"border-right-width" => "//",
+				"border-spacing" => "//",
+				"border-style" => "//",
+				"border-top" => "//",
+				"border-top-color" => "//",
+				"border-top-style" => "//",
+				"border-top-width" => "//",
+				"border-width" => "//",
+				"caption-side" => "//",
+				"clear" => "//",
+				"empty-cells" => "//",
+				"float" => "//",
+				"margin" => "/^[margin]+$/",
+				"margin-right" => "/margin-right/",
+				"margin-left" => "/margin-left/",
+				"margin-top" => "/margin-top/",
+				"margin-bottom" => "/margin-bottom/",
+				"padding" => "/^[padding]+$/",
+				"padding-right" => "/padding-right/",
+				"padding-left" => "/padding-left/",
+				"padding-top" => "/padding-top/",
+				"padding-bottom" => "/padding-bottom/",
+				"table-layout" => "//"
+			),
+			"3" => array(
+				"border-break" => "//",
+				"border-image" => "//",
+				"border-radius" => "//",
+				"box-shadow" => "//"
+			)
+		),
+		"positioning" => array(
+			"2.1" => array(
+				"bottom" => "//",
+				"clip" => "//",
+				"display" => "//",
+				"height" => "//",
+				"left" => "//",
+				"max-height" => "//",
+				"max-width" => "//",
+				"min-height" => "//",
+				"min-width" => "//",
+				"overflow" => "//",
+				"position" => "//",
+				"right" => "//",
+				"top" => "//",
+				"visibility" => "//",
+				"width" => "//",
+				"z-index" => "//"
+			),
+			"3" => array(
+				"overflow-x" => "//",
+				"overflow-y" => "//"
+			)
+		),
+		"printing" => array(
+			"2.1" => array(
+				"orphans" => "//",
+				"page-break-after" => "//",
+				"page-break-before" => "//",
+				"page-break-inside" => "//",
+				"widows" => "//"
+			),
+			"3" => array(
+				"fit" => "//",
+				"fit-position" => "//",
+				"image-orientation" => "//",
+				"page" => "//",
+				"size" => "//"
+			)
+		),
+		"user-interface" => array(
+			"2.1" => array(
+				"cursor" => "//",
+				"outline" => "//",
+				"outline-color" => "//",
+				"outline-style" => "//",
+				"outline-width" => "//"
+			),
+			"3" => array(
+				"appearance" => "//",
+				"box-sizing" => "//",
+				"icon" => "//",
+				"nav-down" => "//",
+				"nav-index" => "//",
+				"nav-left" => "//",
+				"nav-right" => "//",
+				"nav-up" => "//",
+				"outline-offset" => "//",
+				"outline-radius" => "//",
+				"resize" => "//"
+			)
 		)
 	);
-	// echo "<h2>Rules:</h2>";
-	// echo "<pre>" . print_r($rules, true) . "</pre>";
 ?>
