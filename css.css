@@ -2,14 +2,7 @@
 * {
 	color: red;
 }
-div {
-	margin: 10px;
-}
-
-div div {
-	margin: 10px;
-	padding: 10px;
-}
+div {margin: 10px;} div div {margin: 10px;padding: 10px;}
 div + div {
 	margin: 10px;
 	padding: 10px;
@@ -34,6 +27,27 @@ input[type=text] {
 	some: style;
 }
 
+input[type="text"] {
+	some: style;
+}
+
+input type=text {
+	some: style;
+}
+
+p:lang(en) {
+	color: green;
+}
+
+p:nth-child(2) {
+	color: green;
+}
+p:after {
+	color: green;
+}
+p::before {
+	color: green;
+}
 /* Media Query  */
 @media screen and (-webkit-min-device-pixel-ratio:0) {	
 	body {
@@ -43,3 +57,7 @@ input[type=text] {
 		margin-top: -1px;
 	}
 }
+/* @page {
+	size:8.5in 11in;
+	margin: 2cm;
+} */
