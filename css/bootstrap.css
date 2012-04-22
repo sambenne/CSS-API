@@ -2690,7 +2690,7 @@ input[type="submit"].btn.btn-mini {
 }
 .tab-content {
   display: table;
-  width: 100%;
+  width: 90%;
 }
 .tabs-below .nav-tabs,
 .tabs-right .nav-tabs,
