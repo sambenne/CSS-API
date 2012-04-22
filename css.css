@@ -17,7 +17,9 @@ div:first-child {
 	margin: 10px;
 	padding: 10px;
 }
-
+a:active {
+	text-decoration: underline;
+}
 div::after {
 	margin: 10px;
 	padding: 10px;

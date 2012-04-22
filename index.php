@@ -20,6 +20,10 @@
 			.sidebar-nav {
 				padding: 9px 0;
 			}
+			.sup-0 {background-color: #faa !important;}
+			.sup-1 {background-color: #c9e3b4 !important;}
+			.sup-2 {background-color: #fffacf !important;}
+			.sup-3 {background-color: #fffacf !important;}
 		</style>
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
 		<!-- <link href="css/prettify.css" rel="stylesheet" /> -->
@@ -34,11 +38,6 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
 					<a class="brand" href="#">CSS Compatability API</a>
 				</div>
 			</div>
@@ -59,6 +58,7 @@
 								<li><a href="#lC" data-toggle="tab">New CSS</a></li>
 								<li><a href="#at" data-toggle="tab">@types</a></li>
 								<li><a href="#lD" data-toggle="tab">What we get!</a></li>
+								<li><a href="#results" data-toggle="tab">The Results</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="lA">
@@ -109,6 +109,38 @@
 										echo "<pre>" . print_r($values, true) . "</pre>";
 										$CSS = "<pre>" . print_r($CP->used(), true) . "</pre>";
 										echo "<h3>What we found</h3><p>So this is what I will be using to the comparison later on. I have put a little more information for testing in it but that will be removed.</p>$CSS";
+									?>
+								</div>
+								<div class="tab-pane" id="results">
+									<h2>The Results So Far</h2>
+									<p>This is showing what is found when parsing the CSS. Currently it only does selectors and properties.</p>
+									<div class="row-fluid">
+										<table id="table" class="table table-striped table-bordered table-condensed span6">
+											<thead>
+												<tr>
+													<th>Type</th>
+													<th>IE 5</th>
+													<th>IE 5.5</th>
+													<th>IE 6</th>
+													<th>IE 7</th>
+													<th>IE 8</th>
+													<th>IE 9</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+													$CP->getSupported();
+													$CP->report();
+												?>
+											</tbody>
+										</table>
+										<div class="span6">
+											<h3>Min supported version: <?php echo $CP->minSupport(); ?></h3>
+										</div>
+									</div>
+									<?php
+										$CSS = $CP->rawCSS();
+										echo "<h3>Raw CSS</h3><p>This is what it is checking.</p><pre>$CSS</pre>";
 									?>
 								</div>
 							</div>

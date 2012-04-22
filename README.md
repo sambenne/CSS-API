@@ -8,6 +8,7 @@ This will parse the CSS and tell you what versions of IE support it.
 22/04/2012
  - Updated the rules, still have the units and values to do and there is still a selecotr to do.
  - I have cleaned up the code a little.
+ - Parser can now check the CSS against the IE data and work out which versions it supports.
 
 ###So Far###
 
