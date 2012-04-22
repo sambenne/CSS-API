@@ -28,7 +28,8 @@ input[type=text] {
 }
 
 input[type="text"] {
-	some: style;
+	font: 75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+	font-family: Arial, "MS Trebuchet", sans-serif;
 }
 
 input type=text {
@@ -37,6 +38,7 @@ input type=text {
 
 p:lang(en) {
 	color: green;
+	content: "\u5243";
 }
 
 p:nth-child(2) {

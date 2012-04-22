@@ -53,6 +53,7 @@
 			}
 		}
 		public function addUsed() {
+			$now = microtime(true);
 			/* SELECTORS */
 			self::addToUsed('selectors');
 			/* COMBINATORS */
@@ -65,6 +66,18 @@
 			self::addToUsed('pseudo_elements');
 			/* PROPERTIES */
 			self::addToUsed('border-layout', 'aProperties');
+			self::addToUsed('2d-transforms', 'aProperties');
+			self::addToUsed('list', 'aProperties');
+			self::addToUsed('color-background', 'aProperties');
+			self::addToUsed('font-text', 'aProperties');
+			self::addToUsed('generated-content', 'aProperties');
+			self::addToUsed('border-layout', 'aProperties');
+			self::addToUsed('positioning', 'aProperties');
+			self::addToUsed('printing', 'aProperties');
+			self::addToUsed('user-interface', 'aProperties');
+			$now = microtime(true) - $now;
+			$now = number_format($now,3);
+			echo "<p>Time Taken: $now</p>";
 		}
 		private static function addToUsed($name, $type = 'aSelectors') {
 			$tmpRules = array_merge(self::$rules[$name]['2.1'], self::$rules[$name]['3']);
