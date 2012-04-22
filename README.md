@@ -3,7 +3,13 @@ CSS-API
 
 This will parse the CSS and tell you what versions of IE support it.
 
-#So Far
+###Changelog###
+
+22/04/2012
+ - Updated the rules, still have the units and values to do and there is still a selecotr to do.
+ - I have cleaned up the code a little.
+
+###So Far###
 
 I have created a class that is dealing with the CSS. It currently cleans up the CSS and in seperate functions it does what it needs to get the 4 different parts that it needs to work out the selectors, properties etc.
 
