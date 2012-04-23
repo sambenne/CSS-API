@@ -1,7 +1,8 @@
 <?php
 	require_once 'css-parser.php';
 
-	$CP = cssParser::getInstance();
+	$css = file_get_contents('css.css');
+	$CP = cssParser::getInstance($css);
 	$CSS = $CP->rawCSS();
 	// echo "<h2>Raw CSS</h2><pre>$CSS</pre><br />";
 

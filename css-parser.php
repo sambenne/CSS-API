@@ -23,17 +23,18 @@
 		public static $selectorsCSS;
 		public static $propertiesCSS;
 
-		public function __construct() {
+		public function __construct($css = NULL) {
 			global $rules, $ie;
 			self::$rules = $rules;
 			self::$ie = $ie;
-			self::$rawCSS = file_get_contents('css.css');
+			self::$rawCSS = $css;
+			// self::$rawCSS = file_get_contents('css.css');
 			/* Remove Comments */
 			self::$rawCSS = preg_replace('!/\*.*?\*/!s', '', self::$rawCSS);
 		}
 
-		public static function getInstance() {
-			if(!self::$_instance) self::$_instance = new self();
+		public static function getInstance($arguemnt) {
+			if(!self::$_instance) self::$_instance = new self($arguemnt);
 			return self::$_instance;
 		}
 		public function getAtRules() {
@@ -131,13 +132,15 @@
 				self::$propertiesCSS[$k] = preg_replace("/(.*?){/", "", self::$propertiesCSS[$k]);
 				self::$propertiesCSS[$k] = preg_replace("/\}/", "", self::$propertiesCSS[$k]);
 				$tmpRev = strrev(self::$propertiesCSS[$k]);
-				if($tmpRev{0} !== ";") self::$propertiesCSS[$k] .= ";";
+				if(!empty($tmpRev) && $tmpRev{0} !== ";") self::$propertiesCSS[$k] .= ";";
 			}
 			self::$propertiesCSS = array_slice(explode(";", implode("", self::$propertiesCSS)), 0, -1);
 			foreach (self::$propertiesCSS as $k => $v) {
 				$tmpData = explode(":", $v);
-				if(!in_array(trim($tmpData[0]), self::$aProperties)) self::$aProperties[] = trim($tmpData[0]);
-				if(!in_array(trim($tmpData[1]), self::$aValues)) self::$aValues[] = trim($tmpData[1]);
+				if(!in_array(trim($tmpData[0]), self::$aProperties))
+					self::$aProperties[] = trim($tmpData[0]);
+				if(isset($tmpData[1]) && !in_array(trim($tmpData[1]), self::$aValues))
+					self::$aValues[] = trim($tmpData[1]);
 			}
 		}
 		public function getSupported() {
@@ -145,16 +148,19 @@
 				foreach ($data as $k => $name) {
 					$tmpIE = array_merge(self::$ie[$type]['2.1'], self::$ie[$type]['3']);
 					if(isset($tmpIE[$name]) && count($tmpIE[$name]) > 0) {
-						self::$supported[$name] = $tmpIE[$name];
+						self::$supported[$type][$name] = $tmpIE[$name];
 					}
 				}
 			}
-			// echo "<pre>" . print_r(self::$supported, true) . "</pre>";
 		}
 		public function report() {
 			$sup = array(0 => "No", 1 => "Yes", 2 => "Partial", 3 => "Updated");
+			$section = "";
 			foreach(self::$supported as $type => $data) {
-				echo "<tr><td class='first'>$type</td><td class='sup-$data[0]'>".$sup[$data[0]]."</td><td class='sup-$data[1]'>".$sup[$data[1]]."</td><td class='sup-$data[2]'>".$sup[$data[2]]."</td><td class='sup-$data[3]'>".$sup[$data[3]]."</td><td class='sup-$data[4]'>".$sup[$data[4]]."</td><td class='sup-$data[5]'>".$sup[$data[5]]."</td></tr>";
+				echo "<tr><th colspan='7'>$type</th></tr>";
+				foreach ($data as $k => $v) {
+					echo "<tr><td class='first'>$k</td><td class='sup-$v[0]'>".$sup[$v[0]]."</td><td class='sup-$v[1]'>".$sup[$v[1]]."</td><td class='sup-$v[2]'>".$sup[$v[2]]."</td><td class='sup-$v[3]'>".$sup[$v[3]]."</td><td class='sup-$v[4]'>".$sup[$v[4]]."</td><td class='sup-$v[5]'>".$sup[$v[5]]."</td></tr>";
+				}
 			}
 		}
 		public function minSupport() {
@@ -162,12 +168,14 @@
 			$sup = 0;
 			$vs = array("5", "5.5", "6", "7", "8", "9", "10");
 			foreach(self::$supported as $type => $data) {
-				$min[0] = $min[0] + ($data[0] === 0 ? 1 : 0);
-				$min[1] = $min[1] + ($data[1] === 0 ? 1 : 0);
-				$min[2] = $min[2] + ($data[2] === 0 ? 1 : 0);
-				$min[3] = $min[3] + ($data[3] === 0 ? 1 : 0);
-				$min[4] = $min[4] + ($data[4] === 0 ? 1 : 0);
-				$min[5] = $min[5] + ($data[5] === 0 ? 1 : 0);
+				foreach ($data as $k => $v) {
+					$min[0] = $min[0] + ($v[0] === 0 ? 1 : 0);
+					$min[1] = $min[1] + ($v[1] === 0 ? 1 : 0);
+					$min[2] = $min[2] + ($v[2] === 0 ? 1 : 0);
+					$min[3] = $min[3] + ($v[3] === 0 ? 1 : 0);
+					$min[4] = $min[4] + ($v[4] === 0 ? 1 : 0);
+					$min[5] = $min[5] + ($v[5] === 0 ? 1 : 0);
+				}
 			}
 			// echo "<pre>" . print_r($min, true) . "</pre>";
 			foreach ($min as $k => $v) if($v > 0) $sup = $sup + 1;

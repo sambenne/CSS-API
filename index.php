@@ -1,6 +1,7 @@
 <?php
 	require_once 'css-parser.php';
-	$CP = cssParser::getInstance();
+	$css = file_get_contents('css.css');
+	$CP = cssParser::getInstance($css);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,18 @@
 			.sup-1 {background-color: #c9e3b4 !important;}
 			.sup-2 {background-color: #fffacf !important;}
 			.sup-3 {background-color: #fffacf !important;}
+
+			#dropzone {
+				width: 100%;
+				height: 150px;
+				background-color: #DDD;
+			}
+			#dropzone h3 {
+				text-align: center;
+				padding-top: 60px;
+				font-size: 42px;
+				color: #888;
+			}
 		</style>
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
 		<!-- <link href="css/prettify.css" rel="stylesheet" /> -->
@@ -59,6 +72,7 @@
 								<li><a href="#at" data-toggle="tab">@types</a></li>
 								<li><a href="#lD" data-toggle="tab">What we get!</a></li>
 								<li><a href="#results" data-toggle="tab">The Results</a></li>
+								<li><a href="#haveago" data-toggle="tab">Have a Go</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="lA">
@@ -94,7 +108,7 @@
 										$CP->getAtRules();
 										$CSS = $CP->atCSS();
 										$atTypes = $CP->used();
-										echo "<pre>" . print_r($atTypes['at-types'], true) . "</pre>";
+										echo "<pre>" . print_r($atTypes['at-rules'], true) . "</pre>";
 									?>
 									<!-- <pre><?php echo $CSS; ?></pre> -->
 								</div>
@@ -143,6 +157,27 @@
 										echo "<h3>Raw CSS</h3><p>This is what it is checking.</p><pre>$CSS</pre>";
 									?>
 								</div>
+								<div class="tab-pane" id="haveago">
+									<h2>Have a Go with your CSS!</h2>
+									<p>Just simply drag and drop.</p>
+									<div id="dropzone">
+										<h3>Drag and Drop</h3>
+									</div>
+									<table id="table" class="table table-striped table-bordered table-condensed span6 hide">
+										<thead>
+											<tr>
+												<th>Type</th>
+												<th>IE 5</th>
+												<th>IE 5.5</th>
+												<th>IE 6</th>
+												<th>IE 7</th>
+												<th>IE 8</th>
+												<th>IE 9</th>
+											</tr>
+										</thead>
+										<tbody id="data"></tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div><!--/row-->
@@ -157,23 +192,86 @@
 
 		</div><!--/.fluid-container-->
 
-		<!-- Le javascript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<!--<script src="http://twitter.github.com/bootstrap/assets/js/jquery.js"></script>
 		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
 		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
 		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
 		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
-		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
-		<script type="text/javascript" src="js/prettify.js"></script>
+		<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>-->
+		<script>
+			$(document).ready(function() {
+				function noopHandler(evt) {
+					evt.stopPropagation();
+					evt.preventDefault();
+					if(evt.type == "dragenter") {
+						$(this).addClass("dragenter");
+					} else if (evt.type == "dragleave" || evt.type == "drop") {
+						$(this).removeClass("dragenter");
+					}
+				}
+				dropbox();
+				var css = [];
+				function dropbox() {
+					var dropbox = document.getElementById('dropzone');
+					dropbox.addEventListener("dragenter", noopHandler, false);
+					dropbox.addEventListener("dragleave", noopHandler, false);
+					dropbox.addEventListener("dragover",  noopHandler, false);
 
+					dropbox.addEventListener("drop", function (evt) {
+						var files = evt.dataTransfer.files;
+						$.each(files, function(k, f) {
+							var fR = new FileReader();
+							fR.readAsDataURL(f);
+							fR.onload = function(theFile) {
+								var tmpName = f.fileName;
+								css.push({
+									file: f,
+									name: tmpName.split('.')[0],
+									type: tmpName.split('.')[(tmpName.split('.').length - 1)],
+									fileName: f.fileName
+								});
+								if(css[0].type == "css") {
+									uploadFile(css[0]);
+									// $('#dropzone h3').text("Click me to do it.").css('cursor', 'pointer');
+								}
+							}
+						});
+						noopHandler(evt);
+					}, false);
+				}
+				$('#dropzone h3').click(function() {
+					uploadFile(css[0]);
+				});
+				function uploadFile (f) {
+					var upload = new FormData();
+					upload.append('file', f.file);
+					upload.append('l_name', f.name);
+					upload.append('l_type', f.type);
+					upload.append('l_fileName', f.fileName);
+					$.ajax({
+						url: 'ajax.php',
+						data: upload,
+						cache: false,
+						contentType: false,
+						processData: false,
+						type: 'POST',
+						async: false,
+						beforeSend: function() {
+						},
+						success: function(ret){
+							$('#data').html(ret);
+							$('table').removeClass('hide');
+						},
+						error: function(ret) {
+							console.error(ret);
+						}
+					});
+
+					// css = [];
+				}
+			});
+		</script>
 	</body>
 </html>

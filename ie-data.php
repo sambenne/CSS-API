@@ -172,7 +172,6 @@
 			"3" => array(
 				"font-effect" => array(0,0,0,0,0,0),
 				"font-emphasize" => array(0,0,0,0,0,0),
-				"font-size" => array(0,0,0,0,0,0),
 				"font-smooth" => array(0,0,0,0,0,0),
 				"font-stretch" => array(0,0,0,0,0,1),
 				"hanging-punctuation" => array(0,0,0,0,0,0),
