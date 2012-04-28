@@ -159,7 +159,7 @@
 			foreach(self::$supported as $type => $data) {
 				echo "<tr><th colspan='7'>$type</th></tr>";
 				foreach ($data as $k => $v) {
-					echo "<tr><td class='first'>$k</td><td class='sup-$v[0]'>".$sup[$v[0]]."</td><td class='sup-$v[1]'>".$sup[$v[1]]."</td><td class='sup-$v[2]'>".$sup[$v[2]]."</td><td class='sup-$v[3]'>".$sup[$v[3]]."</td><td class='sup-$v[4]'>".$sup[$v[4]]."</td><td class='sup-$v[5]'>".$sup[$v[5]]."</td></tr>";
+					echo "<tr><td class='first'>{$k}</td><td class='sup-{$v[0]}'>".{$sup[$v[0]]}."</td><td class='sup-{$v[1]}'>".{$sup[$v[1]]}."</td><td class='sup-{$v[2]}'>".{$sup[$v[2]]}."</td><td class='sup-{$v[3]}'>".{$sup[$v[3]]}."</td><td class='sup-{$v[4]}'>".{$sup[$v[4]]}."</td><td class='sup-{$v[5]}'>".{$sup[$v[5]]}."</td></tr>";
 				}
 			}
 		}
